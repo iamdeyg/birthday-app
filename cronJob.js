@@ -1,6 +1,6 @@
-const cron = require("cron");
-const nodemailer = require("nodemailer");
-const User = require("./models/user");
+import nodemailer from "nodemailer";
+import { CronJob } from "cron";
+import User from "./models/user.js"; // Import the ES module model
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const job = new cron.CronJob("0 7 * * *", async () => {
+const job = new CronJob("0 7 * * *", async () => {
   const today = new Date().toISOString().split("T")[0]; // Today's date in 'YYYY-MM-DD' format
 
   try {
@@ -37,4 +37,5 @@ const job = new cron.CronJob("0 7 * * *", async () => {
   }
 });
 
-job.start();
+// Named export for the cron job
+export { job };

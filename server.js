@@ -1,9 +1,14 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const connectDB = require("./config");
-const cronJob = require("./cronJob");
-const path = require("path");
-const indexRoutes = require("./routes/index");
+import express from "express";
+import bodyParser from "body-parser";
+import connectDB from "./config.js"; // Import the ES module config
+import { job as cronJob } from "./cronJob.js"; // Import the named export 'job'
+import path from "path";
+import indexRoutes from "./routes/index.js"; // Import the ES module routes
+import { fileURLToPath } from "url";
+
+// Use fileURLToPath and import.meta.url to get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 3000;
